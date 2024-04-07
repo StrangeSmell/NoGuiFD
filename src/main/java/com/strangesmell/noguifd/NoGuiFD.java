@@ -39,7 +39,7 @@ public class NoGuiFD
     public static final RegistryObject<Block> NGCookingPot = BLOCKS.register("no_gui_cooking_pot",NGCookingPotBlock::new);
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    public static final RegistryObject<Item> NGCookingPotItem = ITEMS.register("no_gui_cooking_pot_item",()->new BlockItem(NGCookingPot.get(),new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> NGCookingPotItem = ITEMS.register("no_gui_cooking_pot_item",()->new NGCookingPotItem(NGCookingPot.get(),new Item.Properties().stacksTo(1)));
 
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);

@@ -64,17 +64,6 @@ public class NGCookingPotBlockEntityRenderer implements BlockEntityRenderer<NGCo
                         }
                     }
                     case 7-> {
-                        pPoseStack.translate(12.5*onePix,onePix*dy,13*onePix);
-                        pPoseStack.scale(0.2F, 0.2F, 0.2F);
-                        pPoseStack.translate(0,pBlockEntity.indexCount.get(index)/80,0);
-                        pPoseStack.mulPose(Axis.YP.rotationDegrees(time));
-                        if(dx<(14*onePix)&&dx>(11*onePix)&&dz>(12*onePix)&&dz<(14*onePix)){
-                            pBlockEntity.increaseIndexCount(index);
-                        } else {
-                            pBlockEntity.decreaseIndexCount(index);
-                        }
-                    }
-                    case 8-> {
                         pPoseStack.translate(3.5*onePix,onePix*dy,13*onePix);
                         pPoseStack.scale(0.2F, 0.2F, 0.2F);
                         pPoseStack.translate(0,pBlockEntity.indexCount.get(index)/80,0);
@@ -82,6 +71,19 @@ public class NGCookingPotBlockEntityRenderer implements BlockEntityRenderer<NGCo
                         if(dx<(5*onePix)&&dx>(2*onePix)&&dz>(12*onePix)&&dz<(14*onePix)){
                             pBlockEntity.increaseIndexCount(index);
                         }else {
+                            pBlockEntity.decreaseIndexCount(index);
+                        }
+
+                    }
+                    case 8-> {
+
+                        pPoseStack.translate(12.5*onePix,onePix*dy,13*onePix);
+                        pPoseStack.scale(0.2F, 0.2F, 0.2F);
+                        pPoseStack.translate(0,pBlockEntity.indexCount.get(index)/80,0);
+                        pPoseStack.mulPose(Axis.YP.rotationDegrees(time));
+                        if(dx<(14*onePix)&&dx>(11*onePix)&&dz>(12*onePix)&&dz<(14*onePix)){
+                            pBlockEntity.increaseIndexCount(index);
+                        } else {
                             pBlockEntity.decreaseIndexCount(index);
                         }
                     }
@@ -224,7 +226,7 @@ public class NGCookingPotBlockEntityRenderer implements BlockEntityRenderer<NGCo
         float x= animationVec.x/30;
         float y= animationVec.y/30;
 
-        float rollX = pBlockEntity.randomRollX.nextFloat(1f)*0.8f-0.1f+pBlockEntity.randomVecX.nextFloat();
+        float rollX = pBlockEntity.randomRollX.nextFloat(1f)*0.5f-0.1f+pBlockEntity.randomVecX.nextFloat();
         float rollY = pBlockEntity.randomRollY.nextFloat(1f)*0.5f-0.1f+pBlockEntity.randomVecY.nextFloat();
         float rollZ = pBlockEntity.randomRollZ.nextFloat(1f)*0.5f-0.1f+pBlockEntity.randomVecZ.nextFloat();
         if(index<6&&pBlockEntity.isHeated()){

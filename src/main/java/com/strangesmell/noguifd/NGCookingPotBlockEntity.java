@@ -16,9 +16,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -186,6 +188,24 @@ public class NGCookingPotBlockEntity extends SyncedBlockEntity implements MenuPr
             compound.put("Container", this.mealContainerStack.serializeNBT());
             compound.put("Inventory", drops.serializeNBT());
             return compound;
+        }
+    }
+
+    public static ItemStack getMealFromItem(ItemStack cookingPotStack) {
+        if (!cookingPotStack.is((Item)NoGuiFD.NGCookingPotItem.get())) {
+            return ItemStack.EMPTY;
+        } else {
+            CompoundTag compound = cookingPotStack.getTagElement("BlockEntityTag");
+            if (compound != null) {
+                CompoundTag inventoryTag = compound.getCompound("Inventory");
+                if (inventoryTag.contains("Items", 9)) {
+                    ItemStackHandler handler = new ItemStackHandler();
+                    handler.deserializeNBT(inventoryTag);
+                    return handler.getStackInSlot(6);
+                }
+            }
+
+            return ItemStack.EMPTY;
         }
     }
 
@@ -539,7 +559,7 @@ public class NGCookingPotBlockEntity extends SyncedBlockEntity implements MenuPr
                 level.addParticle(ParticleTypes.BUBBLE_POP, x, y, z, 0.0D, 0.0D, 0.0D);
             }
 
-            if (random.nextFloat() < 0.05F) {
+            if (random.nextFloat() < 0.03F) {
                 x = (double)pos.getX() + 0.5D + (random.nextDouble() * 0.4D - 0.2D);
                 y = (double)pos.getY() + 0.5D;
                 z = (double)pos.getZ() + 0.5D + (random.nextDouble() * 0.4D - 0.2D);

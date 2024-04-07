@@ -115,6 +115,7 @@ public class NGCookingPotBlock extends CookingPotBlock {
                         }
                         case 7,8,9 ->{
                             int indexTemp = (int) ((dx-4*onePix)/(2*dd*onePix));
+                            if(indexTemp+3>5) return;;
                             setItem(indexTemp+3,pPlayer,pHand,ngCookingPotBlockEntity);
                         }
                         case 12,13->{
@@ -156,6 +157,7 @@ public class NGCookingPotBlock extends CookingPotBlock {
                         }
                         case 7,8,9 ->{
                             int indexTemp = (int) ((dx-4*onePix)/(2*dd*onePix));
+                            if(indexTemp+3>5) return;;
                             setItem(indexTemp+3,pPlayer,pHand,ngCookingPotBlockEntity);
                         }
                         case 12,13->{
@@ -196,6 +198,7 @@ public class NGCookingPotBlock extends CookingPotBlock {
                         }
                         case 6,7,8 ->{
                             int indexTemp = (int) ((dz-4*onePix)/(2*dd*onePix));
+                            if(indexTemp+3>5) return;
                             setItem(indexTemp+3,pPlayer,pHand,ngCookingPotBlockEntity);
                         }
                         case 9,10,11 ->{
@@ -238,6 +241,7 @@ public class NGCookingPotBlock extends CookingPotBlock {
                         }
                         case 6,7,8 ->{
                             int indexTemp = (int) ((dz-4*onePix)/(2*dd*onePix));
+                            if(indexTemp+3>5) return;
                             setItem(indexTemp+3,pPlayer,pHand,ngCookingPotBlockEntity);
                         }
                         case 9,10,11 ->{
@@ -309,7 +313,6 @@ public class NGCookingPotBlock extends CookingPotBlock {
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
-        //return super.getTicker(level,state,blockEntity) ;
         return level.isClientSide ? createTickerHelper(blockEntity, (BlockEntityType)NoGuiFD.NGCookingPotEntity.get(), NGCookingPotBlockEntity::animationTick) : createTickerHelper(blockEntity, (BlockEntityType)NoGuiFD.NGCookingPotEntity.get(), NGCookingPotBlockEntity::cookingTick);
     }
 
@@ -317,7 +320,7 @@ public class NGCookingPotBlock extends CookingPotBlock {
         super.createBlockStateDefinition(builder);
     }
     public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
-        ItemStack stack = super.getCloneItemStack(level, pos, state);
+        ItemStack stack = new ItemStack(this);
         NGCookingPotBlockEntity cookingPotEntity = (NGCookingPotBlockEntity)level.getBlockEntity(pos);
         if (cookingPotEntity != null) {
             CompoundTag nbt = cookingPotEntity.writeMeal(new CompoundTag());
