@@ -313,7 +313,7 @@ public class NGCookingPotBlock extends CookingPotBlock {
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
-        return level.isClientSide ? createTickerHelper(blockEntity, (BlockEntityType)NoGuiFD.NGCookingPotEntity.get(), NGCookingPotBlockEntity::animationTick) : createTickerHelper(blockEntity, (BlockEntityType)NoGuiFD.NGCookingPotEntity.get(), NGCookingPotBlockEntity::cookingTick);
+        return level.isClientSide ? NGCookingPotBlockEntity::animationTick :(BlockEntityTicker<NGCookingPotBlockEntity>) NGCookingPotBlockEntity::cookingTick;
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
